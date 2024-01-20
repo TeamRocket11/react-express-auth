@@ -1,16 +1,16 @@
-const Task = require('../../db/models/task')
-
 const createTask = async (req, res) => {
-    const { taskname, description } = req.body; // Extract task details and user ID from request body
-
-    try {
-        const newTask = await Task.create( taskname, description);
-        res.status(201).send(newTask);
-    } catch (error) {
-        res.status(500).send({ error: "Internal server error" });
-        console.error(error);
-    }
-}
-
+    const {
+      session, // this req.session property is put here by the handleCookieSessions middleware
+      db: { Task }, // this req.db.User property is put here by the addModelsToRequest middleware
+      body: { user, task_name, description }, // this req.body property is put here by the client
+    } = req;
+  
+    // TODO: check if username is taken, what should you return?
+    const task = await Task.create(user, task_name, description );
+    session.userId = user.id;
+  
+    res.send(task);
+};
 module.exports = createTask;
+  
  

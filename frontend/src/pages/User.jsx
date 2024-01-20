@@ -46,7 +46,7 @@ export default function UserPage() {
   };
 
 
-  const handleSubmit = async (event) => {
+  /*const handleSubmit = async (event) => {
     event.preventDefault();
     let form = new FormData(event.target)
     console.log(form)
@@ -57,9 +57,9 @@ export default function UserPage() {
         console.log(task,description)
     }
     
-  };
+  };*/
 
-  /*const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!task.taskname || !task.description) {
       return setErrorText('Missing task name or description');
@@ -67,11 +67,12 @@ export default function UserPage() {
     try {
         // Assuming createTask function takes an object with task details
         const newTask = await createTask({
-            taskname: task.taskname,
+            task_name: task.taskname,
             description: task.description,
-            userId: currentUser.id // Add the userId if your task is related to the user
+            user: currentUser.id // Add the userId if your task is related to the user
         });
-   console.log(newTask)
+      console.log(newTask)
+      
         // Handle the response here. For example, you can clear the form.
         setTask({ taskname: '', description: '' });
 
@@ -81,7 +82,7 @@ export default function UserPage() {
     } catch (error) {
         setErrorText(error.message || 'Failed to create task');
     }
-};*/
+};
 
   
 
