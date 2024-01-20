@@ -8,7 +8,7 @@ export const deleteOptions = {
   credentials: 'include',
 };
 
-export const getPostOptions = (body) => ({
+export const getPostOptions = ({body}) => ({
   method: 'POST',
   credentials: 'include',
   headers: { 'Content-Type': 'application/json' },

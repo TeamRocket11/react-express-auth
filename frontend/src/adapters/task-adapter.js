@@ -1,8 +1,8 @@
-import { fetchHandler, getPostOptions, getPatchOptions, deleteOptions} from "../utils";
+import { fetchHandler, getPostOptions} from "../utils";
 
-const baseUrl = 'http://localhost:3000/api/tasks';
+const baseUrl = '/api';
 
 
 export const createTask = async ({ user, taskname, description }) => (
-    fetchHandler(baseUrl, getPostOptions({ user,taskname, description }))
+    fetchHandler(`${baseUrl}/tasks`, getPostOptions({ user,taskname, description }))
   );
