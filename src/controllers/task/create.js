@@ -1,10 +1,10 @@
 const createTask = async (req, res) => {
     const {
         db: { Task }, // Assuming Task is your Task model
-        body: { taskname, description, userId }, // Extract task details and user ID from request body
+        body: { user, taskname, description }, // Extract task details and user ID from request body
     } = req;
 
- const newTask = await Task.create(taskname, description,userId);
+ const newTask = await Task.create(user, taskname, description);
  res.status(201).send(newTask);
 }
 

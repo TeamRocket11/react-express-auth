@@ -47,10 +47,27 @@ export default function UserPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setCreatedTask(task);
-    setTask({ taskname: '', description: '' }); 
-    
-  };
+    if (!task.taskname || !task.description) {
+      return setErrorText('Missing task name or description');
+  }
+    try {
+        // Assuming createTask function takes an object with task details
+        const newTask = await createTask({
+            taskname: task.taskname,
+            description: task.description,
+            userId: currentUser.id // Add the userId if your task is related to the user
+        });
+
+        // Handle the response here. For example, you can clear the form.
+        setTask({ taskname: '', description: '' });
+
+        // Optionally, you can add the newly created task to a state array to display it
+        // setCreatedTasks([...createdTasks, newTask]);
+
+    } catch (error) {
+        setErrorText(error.message || 'Failed to create task');
+    }
+};
 
   if (!userProfile && !errorText) return null;
   if (errorText) return <p>{errorText}</p>;
@@ -71,21 +88,21 @@ export default function UserPage() {
         && <UpdateUsernameForm currentUser={currentUser} setCurrentUser={setCurrentUser}/>
     }
 
-    
-
-<form onSubmit={handleSubmit} aria-labelledby="login-heading">
-      <h2 id='login-heading'>Log back in!</h2>
+<form onSubmit={handleSubmit} aria-labelledby="task-form">
+      <h2 id='task-form'>Add a Task!</h2>
       <label htmlFor="task">task</label>
       <input value={task.taskname} onChange={handleChange} type="text" autoComplete="task" id="task" name="taskname" />
 
       <label htmlFor="description">description</label>
       <input value={task.description} onChange={handleChange} type="text" autoComplete="current-password" id="description" name="description" />
 
-      <button>Log in!</button>
+      <button>Add task!</button>
+      
     </form>
 
     <section>
-     
-      </section>
+      <ul>
+      </ul>
+    </section>
   </>;
 }

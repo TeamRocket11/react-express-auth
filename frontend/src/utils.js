@@ -22,7 +22,18 @@ export const getPatchOptions = (body) => ({
   body: JSON.stringify(body),
 });
 
-export const fetchHandler = async (url, options = {}) => {
+export const fetchHandler = async (url, options) => {
+  fetch('http://localhost:3000/api/tasks', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    // Additional headers if needed
+  },
+  body: JSON.stringify({ /* your task data */ }),
+})
+.then(response => console.log(response))
+.catch(error => console.error('Error creating task:', error));
+/*
   try {
     const response = await fetch(url, options);
     const { ok, status, headers } = response;
@@ -33,7 +44,7 @@ export const fetchHandler = async (url, options = {}) => {
 
     return [responseData, null];
   } catch (error) {
-    console.warn(error);
+    console.warn(error.message);
     return [null, error];
-  }
+  }*/
 };
