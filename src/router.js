@@ -23,6 +23,6 @@ Router.patch('/users/:id', checkAuthentication, userController.update);
 Router.get('/logged-in-secret', checkAuthentication, (req, res) => {
   res.send({ msg: 'The secret is: there is no secret.' });
 });
-Router.post('/tasks', checkAuthentication,taskController.create)
+Router.post('tasks', taskController.create)
 
 module.exports = Router;

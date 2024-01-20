@@ -1,15 +1,11 @@
-const Task = require('../../db/models/task')
-
 const createTask = async (req, res) => {
-    const { taskname, description, user } = req.body; // Extract task details and user ID from request body
+    const {
+        db: { Task }, // Assuming Task is your Task model
+        body: { user, taskname, description }, // Extract task details and user ID from request body
+    } = req;
 
-    try {
-        const newTask = await Task.create( taskname, description, user );
-        res.status(201).send(newTask);
-    } catch (error) {
-        res.status(500).send({ error: "Internal server error" });
-        console.error(error);
-    }
+ const newTask = await Task.create(user, taskname, description);
+ res.status(201).send(newTask);
 }
 
 module.exports = createTask;
