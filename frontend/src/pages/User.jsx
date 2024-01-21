@@ -51,14 +51,38 @@ export default function UserPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let form = new FormData(event.target)
-    console.log(form)
-
-    setTask({ taskname: '', description: '' });
-    for (const [task, description] of form) {
-      console.log(task,description)
+    if (!task.taskname || !task.description) {
+      return setErrorText('Missing task name or description');
     }
-  };
+    try {
+        // Assuming createTask function takes an object with task details
+        const newTask = await createTask({
+            task_name: task.taskname,
+            description: task.description,
+            // Add the userId if your task is related to the user
+        });
+   console.log(newTask)
+        // Handle the response here. For example, you can clear the form.
+        setTask({ taskname: '', description: '' });
+
+        // Optionally, you can add the newly created task to a state array to display it
+        // setCreatedTasks([...createdTasks, newTask]);
+
+    } catch (error) {
+        setErrorText(error.message || 'Failed to create task');
+    }
+};
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   let form = new FormData(event.target)
+  //   console.log(form)
+
+  //   setTask({ taskname: '', description: '' });
+  //   for (const [task, description] of form) {
+  //     console.log(task,description)
+  //   }
+  // };
 
   if (!userProfile && !errorText) return null;
   if (errorText) return <p>{errorText}</p>;
