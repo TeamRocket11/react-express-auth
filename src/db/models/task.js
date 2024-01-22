@@ -1,12 +1,12 @@
 const knex = require('../knex');
 class Task {
 
-    static async create(task_name, description) {
-        const query = 'INSERT INTO task (task_name, description) VALUES (?, ?) RETURNING *;';
-        const args = [task_name, description];
-        const { rows } = await knex.raw(query)
-        
-     return rows.map(row => new Task(row.task_name, row.description));
+    static async create(task_name, description, user) {
+        const query = 'INSERT INTO task (task_name, description, "user") VALUES (?, ?, ?) RETURNING *;';
+        const args = [task_name, description, user];
+        const { rows } = await knex.raw(query, args)
+        const task = rows[0]
+     return  new Task(task);
 
         
     }
@@ -36,4 +36,5 @@ class Task {
 
 
 }
+
 module.exports = Task;

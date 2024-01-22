@@ -51,14 +51,30 @@ export default function UserPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let form = new FormData(event.target)
-    console.log(form)
+    if (!task.taskname || !task.description) {
+      return setErrorText('Missing task name or description');
+  }
+    try {
+        // Assuming createTask function takes an object with task details
+        const newTask = await createTask({
+            task_name: task.taskname,
+            description: task.description,
+            user: currentUser.id // Add the userId if your task is related to the user
+            
+        });
+      console.log(newTask)
+      console.log(newTask.task_name,newTask.description,newTask.user)
+      
+        // Handle the response here. For example, you can clear the form.
+        setTask({ taskname: '', description: '' });
 
-    setTask({ taskname: '', description: '' });
-    for (const [task, description] of form) {
-      console.log(task,description)
+        // Optionally, you can add the newly created task to a state array to display it
+        // setCreatedTasks([...createdTasks, newTask]);
+
+    } catch (error) {
+        setErrorText(error.message || 'Failed to create task');
     }
-  };
+};
 
   if (!userProfile && !errorText) return null;
   if (errorText) return <p>{errorText}</p>;
@@ -73,23 +89,22 @@ export default function UserPage() {
     { !!isCurrentUserProfile && <button onClick={handleLogout}>Log Out</button>}
      <button onClick={deleteAccount}> Delete Account</button>
     <p>If the user had any data, here it would be</p>
-    <p>Fake Bio or something</p>
+    <p>Fake Bios or something</p>
     {
       !!isCurrentUserProfile
         && <UpdateUsernameForm currentUser={currentUser} setCurrentUser={setCurrentUser}/>
     }
 
-    
-
 <form onSubmit={handleSubmit} aria-labelledby="task-form">
-      <h2 id='task-form'>Add a task!</h2>
-      <label htmlFor="task">task</label>
+      <h2 id='login-heading'>Update Tasks</h2>
+      <label htmlFor="task">Task</label>
       <input value={task.taskname} onChange={handleChange} type="text" autoComplete="task" id="task" name="taskname" />
 
-      <label htmlFor="description">description</label>
+      <label htmlFor="description">Description</label>
       <input value={task.description} onChange={handleChange} type="text" autoComplete="current-password" id="description" name="description" />
 
-      <button>Add task!</button>
+      <button>Update Tasks</button>
+
     </form>
 
     <section>
