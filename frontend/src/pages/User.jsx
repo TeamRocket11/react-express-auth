@@ -72,17 +72,17 @@ export default function UserPage() {
         setErrorText(error.message || 'Failed to create task');
     }
 };
+/*
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let form = new FormData(event.target)
+    console.log(form)
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   let form = new FormData(event.target)
-  //   console.log(form)
-
-  //   setTask({ taskname: '', description: '' });
-  //   for (const [task, description] of form) {
-  //     console.log(task,description)
-  //   }
-  // };
+    setTask({ taskname: '', description: '' });
+    for (const [task, description] of form) {
+      console.log(task,description)
+    }
+  }; */
 
   if (!userProfile && !errorText) return null;
   if (errorText) return <p>{errorText}</p>;
