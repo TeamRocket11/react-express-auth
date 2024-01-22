@@ -1,6 +1,6 @@
 const knex = require('../knex');
 class Task {
-    
+
     static async create(task_name, description, user) {
         const query = 'INSERT INTO task (task_name, description, "user") VALUES (?, ?, ?) RETURNING *;';
         const args = [task_name, description, user];
