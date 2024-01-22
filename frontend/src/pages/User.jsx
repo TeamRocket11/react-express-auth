@@ -100,7 +100,7 @@ export default function UserPage() {
       <label htmlFor="task">Task</label>
       <input value={task.taskname} onChange={handleChange} type="text" autoComplete="task" id="task" name="taskname" />
 
-      <label htmlFor="description">Description</label>
+      <label htmlFor="description">description</label>
       <input value={task.description} onChange={handleChange} type="text" autoComplete="current-password" id="description" name="description" />
 
       <button>Update Tasks</button>
