@@ -69,12 +69,12 @@ export default function UserPage() {
         const newTask = await createTask({
             task_name: task.taskname,
             description: task.description,
-          user: currentUser.id // Add the userId if your task is related to the user
+            user: currentUser.id // Add the userId if your task is related to the user
             
         });
+      console.log(newTask)
+      console.log(newTask.task_name,newTask.description,newTask.user)
       
-      console.log(newTask.taskname,newTask.description,newTask.user)
-   
         // Handle the response here. For example, you can clear the form.
         setTask({ taskname: '', description: '' });
 
