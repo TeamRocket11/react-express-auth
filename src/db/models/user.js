@@ -26,8 +26,8 @@ class User {
     const user = rows[0];
     return user ? new User(user) : null;
   }
- /**/ static async delete(id) {
-    const query = 'DELETE FROM users WHERE id = ?;'
+  static async delete(id) {
+    const query = `DELETE FROM users WHERE id = ?;`
     const args = [id];
     const { rows } = await knex.raw(query, args);
     const user = rows[0];
